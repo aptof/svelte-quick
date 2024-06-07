@@ -20,10 +20,10 @@
 ### `bind:group` ([more](https://svelte.dev/docs/element-directives#bind-group)).
 ```html
 <script>
-	let tortilla = 'Plain';
+  let tortilla = 'Plain';
 
-	/** @type {Array<string>} */
-	let fillings = [];
+  /** @type {Array<string>} */
+  let fillings = [];
 </script>
 
 <!-- grouped radio inputs are mutually exclusive -->
@@ -41,8 +41,8 @@
 ### `bind:this` Get reference of an dom node ([more](https://svelte.dev/docs/element-directives#bind-this)).
 ```html
 <script>
-	/** @type {HTMLCanvasElement} */
-	let canvasElement;
+  /** @type {HTMLCanvasElement} */
+  let canvasElement;
 </script>
 
 <canvas bind:this={canvasElement} />
@@ -92,11 +92,11 @@
 ### If Else  ([more](https://svelte.dev/docs/logic-blocks#if)).
 ```html
 {#if x > 10}
-	<p>{x} is greater than 10</p>
+  <p>{x} is greater than 10</p>
 {:else if 5 > x}
-	<p>{x} is less than 5</p>
+  <p>{x} is less than 5</p>
 {:else}
-	<p>{x} is between 5 and 10</p>
+  <p>{x} is between 5 and 10</p>
 {/if}
 ```
 
@@ -104,51 +104,51 @@
 ```html
 <!--                       key     index -->
 {#each things as thing (thing.id), i} // i = (optional) current index
-	<Thing name={thing.name}/>
+  <Thing name={thing.name}/>
 {/each}
 ```
 
 ### Await  ([more](https://svelte.dev/docs/logic-blocks#await)).
 ```html
 {#await promise then result}
-	<p>The result is {result}</p>
+  <p>The result is {result}</p>
 {/await}
 
 <!-- Or -->
 {#await promise}
-	<p>...waiting</p>
+  <p>...waiting</p>
 {:then result}
-	<p>The result is {result}</p>
+  <p>The result is {result}</p>
 {:catch error}
-	<p style="color: red">{error.message}</p>
+  <p style="color: red">{error.message}</p>
 {/await}
 ```
 
 ### `#key` = destroys and recreates content when keyed value changes ([more](https://svelte.dev/docs/logic-blocks#key)).
 ```html
 {#key value}
-	<div transition:fade>{value}</div>
+  <div transition:fade>{value}</div>
 {/key}
 ```
 
 ### `@html` = put an html content ([more](https://svelte.dev/docs/special-tags#html)).
 ```html
 <div class="blog-post">
-	<h1>{post.title}</h1>
-	{@html post.content}
+  <h1>{post.title}</h1>
+  {@html post.content}
 </div>
 ```
 
 ### `@debug` = Debug with devtools ([more](https://svelte.dev/docs/special-tags#debug)).
 ```html
 <script>
-	let user = {
-		firstname: 'Ada',
-		lastname: 'Lovelace'
+  let user = {
+    firstname: 'Ada',
+    lastname: 'Lovelace'
 	};
 </script>
 
-{@debug user} <!-- Pause whenever user changes -->
+{@debug user} <!-- Pauses whenever user changes -->
 
 <h1>Hello {user.firstname}!</h1>
 ```
@@ -156,18 +156,18 @@
 ### `@const` Declare a local const inside markup ([more](https://svelte.dev/docs/special-tags#const)).
 ```html
 <script>
-	export let boxes;
+  export let boxes;
 </script>
 
 {#each boxes as box}
-	{@const area = box.width * box.height}
-	{box.width} * {box.height} = {area}
+  {@const area = box.width * box.height}
+  {box.width} * {box.height} = {area}
 {/each}
 
 {@const} is only allowed as direct child of {#if}, {:else if}, {:else}, {#each}, {:then}, {:catch}, <Component /> or <svelte:fragment />.
 ```
 
-### Component Properties ([more]()).
+### Component Properties ([more](https://svelte.dev/docs/component-directives#bind-property)).
 ```html
 <script>
 	export let answer = 'a mystery'; // default values
@@ -206,7 +206,7 @@
 </script>
 
 <button on:click={sayHello}>
-	Click to say hello
+  Click to say hello
 </button>
 
 // Parent.svelte
@@ -242,6 +242,22 @@
 </Widget>
 ```
 
+### `<svelte.fragment>` sometimes you don't want a wrapper in the named slot or you need to render multiple root element in a slot ([more](https://svelte.dev/docs/special-elements#svelte-fragment)).
+```html
+Parent.svelte
+<Widget>
+  <div slot="header"> <!-- You don't want the div -->
+    ...
+  </div>
+</Widget>
+
+<Widget>
+  <svelte.fragment slot="header"> <!-- You don't want the div -->
+    ...
+  </svelte.fragment>
+</Widget>
+```
+
 ### `$$slots` Used to check if a named slot is passed by parent ([more](https://svelte.dev/docs/special-elements#slot-$$slots)).
 ```html
 <!-- Card.svelte -->
@@ -251,4 +267,4 @@
 {/if}
 ```
 
-### Slot Key ([more](https://svelte.dev/docs/special-elements#slot-slot-key-value)).
+### Slot Key is used to pass prop to parent ([more](https://svelte.dev/docs/special-elements#slot-slot-key-value)).
